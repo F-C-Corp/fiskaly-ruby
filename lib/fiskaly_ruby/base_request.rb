@@ -20,6 +20,7 @@ module FiskalyRuby
     end
 
     # @param token [String] Fiskaly Bearer Token
+    # @param payload [Hash] Payload of request
     #
     # @example
     #   FiskalyRuby::BaseRequest.new(token: "YOUR_TOKEN")

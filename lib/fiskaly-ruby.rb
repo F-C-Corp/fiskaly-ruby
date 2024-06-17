@@ -6,6 +6,7 @@ require_relative 'fiskaly_ruby/base_request'
 require_relative 'fiskaly_ruby/dsfinvk/base'
 require_relative 'fiskaly_ruby/kassen_sich_v/base'
 require_relative 'fiskaly_ruby/management/base'
+require_relative 'fiskaly_ruby/sign_at/base'
 
 lib = File.expand_path('fiskaly_ruby', __dir__)
 Dir["#{lib}/**/*.rb"].sort.each { |f| require f }
@@ -37,13 +38,20 @@ module FiskalyRuby
     DSFinVK::Authenticate,
     DSFinVK::Exports::Download,
     DSFinVK::Exports::Retrieve,
-    DSFinVK::Exports::Trigger
+    DSFinVK::Exports::Trigger,
+    SignAt::SignatureCreationUnits::Create,
+    SignAt::SignatureCreationUnits::Update,
+    SignAt::Fon::Authenticate,
+    SignAt::CashRegisters::Create,
+    SignAt::CashRegisters::Update,
+    SignAt::CashRegisters::Receipts::Upsert
   ].freeze
 
   CANNOT_SNAKE_CASE = %w(
     KassenSichV
     TSS
     DSFinVK
+    SignAt
   ).freeze
 
   def self.command_to_method_name(command)

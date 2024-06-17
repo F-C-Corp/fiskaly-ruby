@@ -597,6 +597,102 @@ FiskalyRuby.kassensichv_tss_tx_upsert(
 )
 ```
 
+### Sign AT API (NOT FOR PRODUCTION YET)
+
+#### Create a SCU
+
+https://developer.fiskaly.com/api/rksv/v1#tag/Signature-Creation-Units/operation/createSignatureCreationUnit
+
+```ruby
+FiskalyRuby.sign_at_signature_creation_units_create(
+  token: 'access_token',
+  scu_id: 'scu_id', # must send a random uuid, ex: SecureRandom.uuid
+)
+```
+
+#### Initialize SCU
+
+https://developer.fiskaly.com/api/rksv/v1#tag/Signature-Creation-Units/operation/updateSignatureCreationUnit
+
+```ruby
+FiskalyRuby.sign_at_signature_creation_units_update(
+  token: 'access_token',
+  scu_id: 'scu_id',
+  payload: { state: :INITIALIZED }
+)
+```
+
+#### Authenticate FON
+
+https://developer.fiskaly.com/api/rksv/v1#tag/FON/operation/authenticateFon
+
+```ruby
+FiskalyRuby.sign_at_fon_authenticate(
+  token: 'access_token'
+)
+```
+
+#### Create a Cash Register
+
+https://developer.fiskaly.com/api/rksv/v1#tag/Cash-Registers/operation/createCashRegister
+
+```ruby
+FiskalyRuby.sign_at_cash_registers_create(
+  token: 'access_token',
+  cash_register_id: 'cash_register_id', # must send a random uuid, ex: SecureRandom.uuid
+)
+```
+
+#### Initialize Cash Register
+
+https://developer.fiskaly.com/api/rksv/v1#tag/Cash-Registers/operation/updateCashRegister
+
+```ruby
+FiskalyRuby.sign_at_cash_registers_update(
+  token: 'access_token',
+  cash_register_id: 'cash_register_id',
+  payload: { state: :INITIALIZED }
+)
+```
+
+#### Update/Finish receipt
+
+https://developer.fiskaly.com/api/rksv/v1#tag/Receipts/operation/signReceipt
+
+```ruby
+FiskalyRuby.sign_at_cash_registers_receipts_upsert(
+  token: "access_token",
+  cash_register_id: "cash_register_id",
+  receipt_id: "00000000-0000-0000-0000-000000000000",
+  payload: {
+    receipt_type: "NORMAL",
+    schema: {
+      standard_v1: {
+        amounts_per_vat_rate: [
+          {
+            vat_rate: :REDUCED_1,
+            amount: "150.00000"
+          }
+        ],
+        amounts_per_payment_type: [
+          {
+            payment_type: :CASH,
+            amount: "150.00000"
+          }
+        ],
+        line_items: [
+          {
+            quantity: "2",
+            text: "Example Article",
+            amount: "150.00000"
+          }
+        ]
+      }
+    }
+  }
+)
+```
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rspec spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
