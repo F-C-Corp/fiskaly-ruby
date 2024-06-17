@@ -607,6 +607,12 @@ https://developer.fiskaly.com/api/rksv/v1#tag/Signature-Creation-Units/operation
 FiskalyRuby.sign_at_signature_creation_units_create(
   token: 'access_token',
   scu_id: 'scu_id', # must send a random uuid, ex: SecureRandom.uuid
+  payload: {
+    legal_entity_name: 'legal_entity_name',
+    legal_entity_id: {
+      vat_id: 'ATU73948115'
+    }
+  }
 )
 ```
 
@@ -628,7 +634,12 @@ https://developer.fiskaly.com/api/rksv/v1#tag/FON/operation/authenticateFon
 
 ```ruby
 FiskalyRuby.sign_at_fon_authenticate(
-  token: 'access_token'
+  token: 'access_token',
+  payload: {
+    fon_participant_id: "12345678",
+    fon_user_id: "12345678",
+    fon_user_pin: "12345678"
+  }
 )
 ```
 
