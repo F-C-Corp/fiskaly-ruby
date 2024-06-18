@@ -21,7 +21,6 @@ module FiskalyRuby
         #
         # @return [Hash] Formatted response informations
         def call
-          _validate_params
           # PUT https://rksv.fiskaly.com/api/v1/signature-creation-unit/{signature_creation_unit_id}
           response = self.class.put("/signature-creation-unit/#{scu_id}", headers: headers, body: body)
 
