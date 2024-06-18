@@ -6,6 +6,8 @@ module FiskalyRuby
   # Base request handler class
   class BaseRequest
     include HTTParty
+    debug_output Rails.logger
+
 
     # Useful for subclasses requests
     attr_reader :token, :payload
